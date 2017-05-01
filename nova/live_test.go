@@ -115,6 +115,8 @@ func (s *LiveTests) assertServerDetails(c *gc.C, sr *nova.ServerDetail) {
 	if s.testAvailabilityZone != "" {
 		c.Check(sr.AvailabilityZone, gc.Equals, s.testAvailabilityZone)
 	}
+	c.Check(sr.Status, gc.Equals, nova.StatusActive)
+	c.Check(sr.Fault.Code, gc.Equals, 0)
 }
 
 func (s *LiveTests) TestListFlavors(c *gc.C) {

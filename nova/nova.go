@@ -199,6 +199,13 @@ func (c *Client) ListServers(filter *Filter) ([]Entity, error) {
 	return resp.Servers, nil
 }
 
+// Fault describes the error a Nova server has encountered
+type Fault struct {
+	Code    int
+	Created string // Created holds the fault timestamp in RFC3339 format.
+	Message string
+}
+
 // IPAddress describes a single IPv4/6 address of a server.
 type IPAddress struct {
 	Version int    `json:"version"`
@@ -242,6 +249,9 @@ type ServerDetail struct {
 	// Status holds the current status of the server,
 	// one of the Status* constants.
 	Status string
+
+	// Fault is populated only when the status is error
+	Fault Fault `json:",omitempty"`
 
 	TenantId string `json:"tenant_id"`
 

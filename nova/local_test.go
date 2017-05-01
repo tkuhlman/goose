@@ -257,6 +257,8 @@ func (s *localLiveSuite) TestRunServerAvailabilityZone(c *gc.C) {
 	server, err := s.nova.GetServer(inst.Id)
 	c.Assert(err, gc.IsNil)
 	c.Assert(server.AvailabilityZone, gc.Equals, "az2")
+	c.Assert(server.Status, gc.Equals, nova.StatusActive)
+	c.Assert(server.Fault.Code, gc.Equals, 0)
 }
 
 func (s *localLiveSuite) TestRunServerAvailabilityZoneNotAvailable(c *gc.C) {
